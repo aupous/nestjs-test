@@ -13,7 +13,7 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findByEmail(email);
     if (user && user.password === pass) {
-      const { password: _, ...result } = user;
+      const { password, ...result } = user.toJSON() as UserAttributes;
       return result;
     }
     return null;
